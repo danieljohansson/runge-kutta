@@ -8,6 +8,7 @@ var tFin = 12*31*24;
 
 console.log('- - - - - - - - - - - -');
 
+tic('leapfrog');
 // ===== leapfrog =====
 n = 0;
 t = 0;
@@ -36,6 +37,7 @@ while (t < tFin && r > 1) {
     
     n++;
 }
+toc('leapfrog');
 console.log('Leapfrog :', n);
 
 var plot1 = new Plot();
@@ -85,9 +87,8 @@ console.log('RK4     : ', sol.t.length);
 
 // dp54
 tic('dp54')
-sol = dp54System(f, [0, tFin], y0, 1e-5, 1e-9);
+sol = dp54System(f, [0, tFin], y0, 1e-4, 1e-9);
 toc('dp54')
 plot1.plot(sol.y[0].slice(0,elems), sol.y[1].slice(0,elems), 'red');
 plot1.plot(sol.y[0].slice(-elems), sol.y[1].slice(-elems), 'red');
 console.log('DP54    : ', sol.t.length);
-
