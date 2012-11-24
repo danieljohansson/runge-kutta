@@ -1,2 +1,0 @@
-{"ts":1353774234323,"silentsave":true,"restoring":false,"patch":[[{"diffs":[[1,"runge-kutta\n===========\n\nA personal playground for ODE solving"]],"start1":0,"start2":0,"length1":0,"length2":62}]],"length":62}
-{"contributors":[],"silentsave":false,"ts":1353774254900,"patch":[[{"diffs":[[0," solving"],[1," and numerical integration i javascript."]],"start1":54,"start2":54,"length1":8,"length2":48}]],"length":102,"saved":false}
