@@ -1,0 +1,1 @@
+{"ts":1353773094441,"silentsave":true,"restoring":false,"patch":[[{"diffs":[[1,"body {\n    background: #ccc;\n}\ncanvas {\n    background: #fff;\n    border: 1px solid #999;\n    margin: 0 5px 1px 0;\n}"]],"start1":0,"start2":0,"length1":0,"length2":116}]],"length":116}
