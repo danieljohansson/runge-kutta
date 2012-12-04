@@ -11,7 +11,7 @@ var y = function (x) { return x*x*(Math.sin(x) + 1 - Math.sin(1)); };
 var y0 = 1;
 //*/
 
-/*/
+//*/
 var stepSize = 1/6;
 var tSpan = [0, 4.3];
 var f = function (t, y) { return -2*t*t*t + 12*t*t - 20*t + 17/2; };
@@ -43,7 +43,7 @@ var y = function (t) { return t*t + 2*t + 1 - 0.5*Math.pow(Math.E, t); };
 var y0 = 0.5;
 //*/
 
-/*/
+//*/
 console.log(' ');
 var sol;
 var p = new Plot();
@@ -68,9 +68,9 @@ sol = rk4(f, tSpan, y0, 4*stepSize);
 p.plot(sol.t, sol.y, 'green', 'box');
 logError('rk4', sol, y);
 
-sol = dp45(f, tSpan, y0);
-p.plot(sol.t, sol.y, 'darkcyan');
-logError('dp45', sol, y);
+sol = dp5(f, tSpan, y0, 6*stepSize);
+p.plot(sol.t, sol.y, 'darkcyan', '+');
+logError('dp5', sol, y);
 
 sol = dp54(f, tSpan, y0);
 p.plot(sol.t, sol.y, 'purple', 'o');
@@ -78,7 +78,7 @@ logError('dp54', sol, y);
 //*/
 
 
-//*/ =========
+/*/ =========
 // dp45 vs. dp54 ? 
 // dp54 is awesomest
 

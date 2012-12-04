@@ -1,8 +1,3 @@
-var approx = function (a, b, tol) {
-    tol || (tol = 1e-2);
-    return Math.abs(a - b) < tol;
-};
-
 var tests = [{
         name: 'nderiv (undefined order) exp',
         test: approx.bind(this, nderiv(Math.exp, 3, 1e-2), Math.exp(3))
