@@ -19,3 +19,17 @@ plot.plot(x, y3, 'orange', 'x', 'noline');
 plot.plot(x, y4, 'purple', 'o');
 
 //*/
+
+//*/
+var plot2 = new Plot();
+plot2.setSize(600, 400);
+
+plot2.plot([-2,15], [7,-1], 'orange', '+');
+plot2.plot(linspace(-5, 50, 25), linspace(-1, 40, 25), 'blue', 'o');
+//plot2.plot([-0.000002,0.000015], [0.000007,-0.000001], 'orange', '+');
+
+plot2.axisEqual();
+plot2.axisOn();
+plot2.crosshairOn();
+
+//*/
