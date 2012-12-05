@@ -95,7 +95,7 @@ var f = function (t, x) {
 
 /*
 // euler
-sol = eulerSystem(f, [0, tFin], y0, 0.5*dt);
+sol = ode.euler(f, [0, tFin], y0, 0.5*dt);
 plot1.plot(sol.y[0].slice(0,elems), sol.y[1].slice(0,elems), 'lightblue');
 plot1.plot(sol.y[0].slice(-elems), sol.y[1].slice(-elems), 'lightblue');
 console.log('Euler   : ', sol.t.length);
@@ -104,7 +104,7 @@ plotEnergy(sol, 'lightblue');
 
 // runge-kutta 4
 tic('rk4')
-sol = rk4System(f, [0, tFin], y0, 2*dt);
+sol = ode.rk4(f, [0, tFin], y0, 2*dt);
 toc('rk4')
 //plot1.plot(sol.y[0], sol.y[1], 'purple');
 plot1.plot(sol.y[0].slice(0,elems), sol.y[1].slice(0,elems), 'purple');
