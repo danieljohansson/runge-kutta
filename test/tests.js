@@ -1,21 +1,21 @@
-var nderivTests = [{
-        name: 'nderiv (order 1) exp',
-        test: Test.approx.bind(this, nderiv(Math.exp, 3, 1e-4, 1), Math.exp(3))
+var diffTests = [{
+        name: 'diff (order 1) exp',
+        test: Test.approx.bind(this, diff(Math.exp, 3, 1e-4, 1), Math.exp(3))
     }, {
-        name: 'nderiv (order 2) exp',
-        test: Test.approx.bind(this, nderiv(Math.exp, 3, 1e-3, 2), Math.exp(3))
+        name: 'diff (order 2) exp',
+        test: Test.approx.bind(this, diff(Math.exp, 3, 1e-3, 2), Math.exp(3))
     }, {
-        name: 'nderiv (order 4) exp',
-        test: Test.approx.bind(this, nderiv(Math.exp, 3, 1e-2, 4), Math.exp(3))
+        name: 'diff (order 4) exp',
+        test: Test.approx.bind(this, diff(Math.exp, 3, 1e-2, 4), Math.exp(3))
     }, {
-        name: 'nderiv (order 6) exp',
-        test: Test.approx.bind(this, nderiv(Math.exp, 3, 1e-1, 6), Math.exp(3))
+        name: 'diff (order 6) exp',
+        test: Test.approx.bind(this, diff(Math.exp, 3, 1e-1, 6), Math.exp(3))
     }, {
-        name: 'nderiv (undefined order == 4) sin',
-        test: function () { return nderiv(Math.sin, 3, 1e-4) === nderiv(Math.sin, 3, 1e-4)}
+        name: 'diff (undefined order == 4) sin',
+        test: function () { return diff(Math.sin, 3, 1e-4) === diff(Math.sin, 3, 1e-4)}
     }
 ];
-Test.run('nderiv', nderivTests);
+Test.run('diff', diffTests);
 
 var linalgTests = [{
         name: 'vector norm',
@@ -43,11 +43,7 @@ var linalgTests = [{
             var C = [[-10,12],[19,-24]];
             return Test.matrixApprox(linalg.mmMult(A, B), C);
         }
-    }
-];
-Test.run('linalg', linalgTests);
-
-var linsolveTests = [{
+    }, {
         name: 'linsolve',
         test: function () {
             var A = [[1,2],[3,4]];
@@ -58,4 +54,4 @@ var linsolveTests = [{
         }
     }
 ];
-Test.run('linsolve', linsolveTests);
+Test.run('linalg', linalgTests);
