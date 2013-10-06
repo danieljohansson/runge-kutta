@@ -8,11 +8,12 @@ var f = function (t) { return t*Math.sin(t); };
 var exact = function (t) { return Math.sin(t) + t*Math.cos(t); };
 //*/
 
-var p = new Plot();
-p.setSize(700, 500);
-p.markerSize = 4;
-p.axisOn();
-console.log(' ');
+var p = new Plot().options({
+    width: 700, 
+    height: 500,
+    markerSize: 4,
+    axes: true
+});
 
 var t = 1;
 var diff1 = [];
@@ -24,13 +25,13 @@ var n = 4*15 + 1;
 var logs = logspace(-15, 0, n);
 
 for (var i = 0; i < n; i++) {
-    diff1[i] = Math.log(Math.abs(exact(t) - nderiv(f, t, logs[i], 1)));
-    diff2[i] = Math.log(Math.abs(exact(t) - nderiv(f, t, logs[i], 2)));
-    diff4[i] = Math.log(Math.abs(exact(t) - nderiv(f, t, logs[i], 4)));
-    diff6[i] = Math.log(Math.abs(exact(t) - nderiv(f, t, logs[i], 6)));
+    diff1[i] = Math.log(Math.abs(exact(t) - diff(f, t, logs[i], 1)));
+    diff2[i] = Math.log(Math.abs(exact(t) - diff(f, t, logs[i], 2)));
+    diff4[i] = Math.log(Math.abs(exact(t) - diff(f, t, logs[i], 4)));
+    diff6[i] = Math.log(Math.abs(exact(t) - diff(f, t, logs[i], 6)));
 }
 
-p.plot(linspace(0, 15, n), diff1, 'red', 'o');
-p.plot(linspace(0, 15, n), diff2, 'green', 'box');
-p.plot(linspace(0, 15, n), diff4, 'orange', '+');
-p.plot(linspace(0, 15, n), diff6, 'purple', 'x');
+p.plot(linspace(0, 15, n), diff1, {color: 'red', marker: 'o'});
+p.plot(linspace(0, 15, n), diff2, {color: 'green', marker: 'box'});
+p.plot(linspace(0, 15, n), diff4, {color: 'orange', marker: '+'});
+p.plot(linspace(0, 15, n), diff6, {color: 'purple', marker: 'x'});
