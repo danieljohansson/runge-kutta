@@ -41,34 +41,33 @@ var y0 = 0.5;
 
 console.log(' ');
 var sol;
-var p = new Plot();
-p.setSize(800, 600);
+var p = new Plot().size(800, 600);
 
 var t = linspace(tSpan[0], tSpan[1], 200); 
-p.plot(t, t.map(y), 'gray'); // exact
+p.plot(t, t.map(y), {color: 'gray'}); // exact
 
 sol = ode.euler(f, tSpan, y0, stepSize);
-p.plot(sol.t, sol.y, 'red', 'x');
+p.plot(sol.t, sol.y, {color: 'red', marker: 'x'});
 logError('euler', sol, y);
 
 sol = ode.heun(f, tSpan, y0, 2*stepSize);
-p.plot(sol.t, sol.y, 'orange', 'o');
+p.plot(sol.t, sol.y, {color: 'orange', marker: 'o'});
 logError('heun', sol, y);
 
 sol = ode.midpoint(f, tSpan, y0, 2*stepSize);
-p.plot(sol.t, sol.y, 'lightblue');
+p.plot(sol.t, sol.y, {color: 'lightblue'});
 logError('midpoint', sol, y);
 
 sol = ode.rk4(f, tSpan, y0, 4*stepSize);
-p.plot(sol.t, sol.y, 'green', 'box');
+p.plot(sol.t, sol.y, {color: 'green', marker: 'box'});
 logError('rk4', sol, y);
 
 sol = ode.dp5(f, tSpan, y0, 6*stepSize);
-p.plot(sol.t, sol.y, 'darkcyan', '+');
+p.plot(sol.t, sol.y, {color: 'darkcyan', marker: '+'});
 logError('dp5', sol, y);
 
 sol = ode.dp54(f, tSpan, y0);
-p.plot(sol.t, sol.y, 'purple', 'o');
+p.plot(sol.t, sol.y, {color: 'purple', marker: 'o'});
 logError('dp54', sol, y);
 
 

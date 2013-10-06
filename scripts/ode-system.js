@@ -1,5 +1,5 @@
-//*/ 
-var stepSize = 0.05;
+
+var stepSize = 0.04;
 var tSpan = [0, 1];
 var f = function (t, y) {
     return [
@@ -16,31 +16,26 @@ var y = function (t) {
 var y0 = [-0.4, -0.6];
 
 var sol;
-var plot1 = new Plot(); plot1.setSize(500, 300);
-var plot2 = new Plot(); plot2.setSize(500, 300);
+var plot1 = new Plot().size(500, 300);
+var plot2 = new Plot().size(500, 300);
 console.log(' ');
 
 var t = linspace(tSpan[0], tSpan[1], 200); 
 var exact = linalg.transpose(t.map(y));
-plot1.plot(t, exact[0], 'gray'); // exact
-plot2.plot(t, exact[1], 'darkgray'); // exact
+plot1.plot(t, exact[0], {color: 'gray'}); // exact
+plot2.plot(t, exact[1], {color: 'darkgray'}); // exact
 
 sol = ode.euler(f, tSpan, y0, stepSize);
-plot1.plot(sol.t, sol.y[0], 'crimson', 'x');
-plot2.plot(sol.t, sol.y[1], 'blue', 'x');
+plot1.plot(sol.t, sol.y[0], {color: 'crimson', marker: 'x'});
+plot2.plot(sol.t, sol.y[1], {color: 'blue', marker: 'x'});
 logError('euler', sol, y);
 
 sol = ode.rk4(f, tSpan, y0, 4*stepSize);
-plot1.plot(sol.t, sol.y[0], 'green', 'o');
-plot2.plot(sol.t, sol.y[1], 'purple', 'o');
+plot1.plot(sol.t, sol.y[0], {color: 'green', marker: 'o'});
+plot2.plot(sol.t, sol.y[1], {color: 'purple', marker: 'o'});
 logError('rk4', sol, y);
 
 sol = ode.dp54(f, tSpan, y0, 1e-3, 0.5);
-plot1.plot(sol.t, sol.y[0], 'royalblue', 'box');
-plot2.plot(sol.t, sol.y[1], 'orange', 'box');
+plot1.plot(sol.t, sol.y[0], {color: 'royalblue', marker: 'box'});
+plot2.plot(sol.t, sol.y[1], {color: 'orange', marker: 'box'});
 logError('dp54', sol, y);
-
-//*/
-
-
-

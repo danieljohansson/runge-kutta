@@ -1,21 +1,3 @@
-var uPlot = new Plot();
-var kPlot = new Plot();
-var ePlot = new Plot();
-var plotEnergy = function (sol, color) {
-    var i, U = [], K = [], E = [];
-    for (i = 0; i < sol.t.length; i++) {
-        // E = potential energy + kinetic energy
-        // m = 1
-        U.push(GM - GM / Math.sqrt(sol.y[0][i]*sol.y[0][i] + sol.y[1][i]*sol.y[1][i]));
-        K.push(7.7*Math.sqrt(sol.y[2][i]*sol.y[2][i] + sol.y[3][i]*sol.y[3][i]) / 2);
-        E.push(U[i] + K[i]);
-    }
-    uPlot.plot(sol.t, U, color).axisOn().setSize(400, 300);
-    kPlot.plot(sol.t, K, color).axisOn().setSize(400, 300);
-    ePlot.plot(sol.t, E, color).axisOn().setSize(400, 300);
-};
-
-
 // http://www.wolframalpha.com/input/?i=geopotential+of+earth+in+cubic+mean+radii+of+earth+per+hour+squared
 var GM = 19.97644; // jr^3 / h^2
 var dt = 0.1;
@@ -23,7 +5,7 @@ var n, t, r, x, y, vx, vy, ax, ay;
 var j;
 var r0 = 2;
 var v0 = Math.sqrt(GM / r0);
-//var v0 = 4;
+var v0 = 4;
 var tFin = 2*31*24;
 var tFin = 14*24;
 
@@ -59,26 +41,24 @@ while (t < tFin && r > 1) {
     n++;
 }
 toc('leapfrog');
-console.log('Leapfrog :', n);
+console.log('Leapfrog steps :', n);
 
-var plot1 = new Plot();
+var plot1 = new Plot().options({axisEqual: true});
 var elems = 300;
-plot1.axisEqual();
 
 //plot1.plot(x, y, 'orange');
-plot1.plot(x.slice(0,elems), y.slice(0,elems), 'orange');
-plot1.plot(x.slice(-elems), y.slice(-elems), 'gold');
-plotEnergy({t:linspace(0,tFin,n), y:[x, y, vx, vy]}, 'orange');
+plot1.plot(x.slice(0,elems), y.slice(0,elems), {color: 'orange'});
+plot1.plot(x.slice(-elems), y.slice(-elems), {color: 'gold'});
 
 // Jorden!!
 j = linspace(0, 2*Math.PI, 40);
-plot1.plot(j.map(Math.cos), j.map(Math.sin), '#5e5');
+plot1.plot(j.map(Math.cos), j.map(Math.sin), {color: '#5e5'});
 
 // exact circle
 plot1.plot(
     linspace(0, 2*Math.PI, 60).map(function (x) { return 2*Math.cos(x); }), 
     linspace(0, 2*Math.PI, 60).map(function (x) { return 2*Math.sin(x); }), 
-    '#bbb'
+    {color: '#bbb'}
 );
 
 
@@ -96,20 +76,18 @@ var f = function (t, x) {
 /*
 // euler
 sol = ode.euler(f, [0, tFin], y0, 0.5*dt);
-plot1.plot(sol.y[0].slice(0,elems), sol.y[1].slice(0,elems), 'lightblue');
-plot1.plot(sol.y[0].slice(-elems), sol.y[1].slice(-elems), 'lightblue');
-console.log('Euler   : ', sol.t.length);
-plotEnergy(sol, 'lightblue');
+plot1.plot(sol.y[0].slice(0,elems), sol.y[1].slice(0,elems), {color: 'lightblue'});
+plot1.plot(sol.y[0].slice(-elems), sol.y[1].slice(-elems), {color: 'lightblue'});
+console.log('Euler steps : ', sol.t.length);
 */
 
 // runge-kutta 4
 tic('rk4')
 sol = ode.rk4(f, [0, tFin], y0, 2*dt);
 toc('rk4')
-//plot1.plot(sol.y[0], sol.y[1], 'purple');
-plot1.plot(sol.y[0].slice(0,elems), sol.y[1].slice(0,elems), 'purple');
-plot1.plot(sol.y[0].slice(-elems), sol.y[1].slice(-elems), 'magenta');
-console.log('RK4     : ', sol.t.length);
-plotEnergy(sol, 'purple');
+//plot1.plot(sol.y[0], sol.y[1], {color: 'purple'});
+plot1.plot(sol.y[0].slice(0,elems), sol.y[1].slice(0,elems), {color: 'purple'});
+plot1.plot(sol.y[0].slice(-elems), sol.y[1].slice(-elems), {color: 'magenta'});
+console.log('RK4 steps : ', sol.t.length);
 
 

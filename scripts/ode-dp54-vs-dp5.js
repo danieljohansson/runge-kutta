@@ -31,20 +31,21 @@ y0[4] = 0;
 for (var i = 0; i <= 4; i++) {
     
     console.log(' ');
-    p[i] = new Plot();
-    p[i].setSize(350, 250);
-    
-    p[i].axisOn();
+    p[i] = new Plot().options({
+        width: 350, 
+        height: 250, 
+        axes: true
+    });
     
     t = linspace(tSpan[i][0], tSpan[i][1], 300); 
-    p[i].plot(t, t.map(y[i]), 'gray'); // exact
+    p[i].plot(t, t.map(y[i]), {color: 'gray'}); // exact
     
     sol = ode.dp54(f[i], tSpan[i], y0[i], 1e-2, 0.1);
-    p[i].plot(sol.t, sol.y, 'royalblue', 'o');
+    p[i].plot(sol.t, sol.y, {color: 'royalblue', marker: 'o'});
     logError(i + ' dp54', sol, y[i]);
     
     sol = ode.dp5(f[i], tSpan[i], y0[i], (tSpan[i][1] - tSpan[i][0]) / sol.t.length);
-    p[i].plot(sol.t, sol.y, 'red', '+');
+    p[i].plot(sol.t, sol.y, {color: 'tomato', marker: '+'});
     logError(i + ' dp5', sol, y[i]);
 }
 

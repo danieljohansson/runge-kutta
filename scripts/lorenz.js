@@ -15,7 +15,13 @@ var f = function (t, y) {
 };
 var y0 = [-1, 3, 4];
 
-var plot3 = new Plot().setSize(800, 600).crosshairOn().axisOn().axisEqual();
+var plot3 = new Plot().options({
+    width: 800, 
+    height: 600,
+    crosshair: true,
+    axes: true,
+    axesEqual: true
+});
 
 var sol = ode.rk4(f, tSpan, y0, stepSize);
-plot3.plot(sol.y[0], sol.y[1], 'crimson');
+plot3.plot(sol.y[0], sol.y[1], {color: 'crimson'});
