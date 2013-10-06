@@ -17,14 +17,55 @@ var diffTests = [{
 ];
 Test.run('diff', diffTests);
 
+var numToStrTests = [{
+        name: 'all',
+        test: function () {
+            var tests = [
+                [2345678, '2346000'],
+                [0.05, '0.05'],
+                [0.12, '0.12'],
+                [0.00023412, '2.341e-4'],
+                [78.97769e-9, '7.898e-8'],
+                [-653.8924658e5, '-6.539e7'],
+                [1234, '1234'],
+                [12345, '12350'],
+                [1e2, '100'],
+                [1e3, '1000'],
+                [1e4, '10000'],
+                
+                [1e-4, '1e-4'],
+                [1e-3, '0.001'],
+                [1e-2, '0.01'],
+                [1e-1, '0.1'],
+                [1e3 + 1e-11, '1000'],
+                [1e6, '1000000'],
+                [1e7, '1e7'],
+                
+                [NaN, 'NaN'],
+                ['string', 'NaN'],
+                [Infinity, 'Infinity'],
+                [-Infinity, '-Infinity']
+            ];
+            for (var i = 0; i < tests.length; i++) {
+                if (numToStr(tests[i][0]) !== tests[i][1]) {
+                    console.warn('Faliure:', numToStr(tests[i][0]), tests[i][1])
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+];
+Test.run('numToStr', numToStrTests);
+
 var linalgTests = [{
         name: 'vector norm',
-        test: Test.approx.bind(this, linalg.norm([1,2,-3, 1, -1]), 4)
+        test: Test.approx.bind(this, linalg.norm([1, 2, -3, 1, -1]), 4)
     }, {
         name: 'transpose',
         test: function () {
-            var A = [[1,2,3],[4,5,6],[7,8,9]];
-            var T = [[1,4,7],[2,5,8],[3,6,9]];
+            var A = [[1,2,3],[4,5,6],[7,8,9],[10,11,12]];
+            var T = [[1,4,7,10],[2,5,8,11],[3,6,9,12]];
             return Test.matrixApprox(linalg.transpose(A), T);
         }
     }, {
@@ -49,9 +90,10 @@ var linalgTests = [{
             var A = [[1,2],[3,4]];
             var b = [17,39];
             // Ax = B ==> x = [5, 6]
-            x = linsolve(A, b);
+            x = linalg.solve(A, b);
             return Test.approx(x[0], 5) && Test.approx(x[1], 6);
         }
     }
 ];
 Test.run('linalg', linalgTests);
+
